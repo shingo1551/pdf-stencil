@@ -19,7 +19,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "stencil build --docs",
+    "build": "rm -rf dist www && stencil build --docs",
     "start": "stencil build --dev --watch --serve",
     "generate": "stencil generate"
   },
