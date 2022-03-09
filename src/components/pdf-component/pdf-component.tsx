@@ -1,4 +1,4 @@
-import { Component, Host, h } from '@stencil/core';
+import { Component, Host, h, State } from '@stencil/core';
 import { demoPdf } from './demo-pdf';
 
 @Component({
@@ -7,12 +7,18 @@ import { demoPdf } from './demo-pdf';
   shadow: true,
 })
 export class PdfComponent {
+  @State() tiger: string;
   input: HTMLInputElement;
+
+  async componentWillLoad() {
+    const url = './assets/Ghostscript_Tiger.svg';
+    this.tiger = await fetch(url).then((res) => res.text());
+  }
 
   handleButton = async (event: MouseEvent) => {
     event.preventDefault();
 
-    const pdfBytes = await demoPdf(this.input.value);
+    const pdfBytes = await demoPdf(this.input.value, this.tiger);
     const blob = new Blob([pdfBytes], { type: 'application/pdf' });
     const blobUrl = URL.createObjectURL(blob);
     download(blobUrl, 'foo.pdf');
@@ -24,6 +30,7 @@ export class PdfComponent {
       <Host>
         <input type="text" ref={elm => this.input = elm} placeholder="何か入力して下さい"></input>
         <button onClick={this.handleButton}>Submit</button>
+        <div innerHTML={this.tiger}></div>
       </Host>
     );
   }
