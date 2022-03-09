@@ -22,10 +22,8 @@ export class PdfComponent {
   render() {
     return (
       <Host>
-        <form method="POST" action="/">
-          <input type="text" ref={elm => this.input = elm} placeholder="何か入力して下さい"></input>
-          <button onClick={this.handleButton}>Submit</button>
-        </form>
+        <input type="text" ref={elm => this.input = elm} placeholder="何か入力して下さい"></input>
+        <button onClick={this.handleButton}>Submit</button>
       </Host>
     );
   }
