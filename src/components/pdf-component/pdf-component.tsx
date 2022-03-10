@@ -10,18 +10,13 @@ export class PdfComponent {
   @State() tiger: string;
   input: HTMLInputElement;
 
-  async componentWillLoad() {
-    const url = './assets/Ghostscript_Tiger.svg';
-    this.tiger = await fetch(url).then((res) => res.text());
-  }
-
   handleButton = async (event: MouseEvent) => {
     event.preventDefault();
 
+    const url = './assets/Ghostscript_Tiger.svg';
+    this.tiger = await fetch(url).then((res) => res.text());
     const pdfBytes = await demoPdf(this.input.value, this.tiger);
-    const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-    const blobUrl = URL.createObjectURL(blob);
-    download(blobUrl, 'foo.pdf');
+    download(pdfBytes, 'foo.pdf');
     // window.open(blobUrl, '_blank');
   }
 
@@ -30,14 +25,18 @@ export class PdfComponent {
       <Host>
         <input type="text" ref={elm => this.input = elm} placeholder="何か入力して下さい"></input>
         <button onClick={this.handleButton}>Submit</button>
-        <div innerHTML={this.tiger}></div>
+        <img src="./assets/Ghostscript_Tiger.svg" />
+        {/* <div innerHTML={this.tiger}></div> */}
       </Host>
     );
   }
 
 }
 
-function download(blobUrl: string, filename: string) {
+function download(pdfBytes: Uint8Array, filename: string) {
+  const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+  const blobUrl = URL.createObjectURL(blob);
+
   const a = document.createElement('a');
   document.body.appendChild(a);
   a.download = filename;
