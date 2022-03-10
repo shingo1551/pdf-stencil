@@ -15,7 +15,7 @@ export const config: Config = {
     },
     {
       type: 'www',
-      baseUrl: '/docs/',
+      baseUrl: '/pdf-stencil/',
       serviceWorker: null, // disable service workers
     },
   ],

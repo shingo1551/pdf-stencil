@@ -19,7 +19,7 @@
     "loader/"
   ],
   "scripts": {
-    "build": "rm -rf dist www && stencil build --docs",
+    "build": "rm -rf dist docs www && stencil build --docs && mv www/pdf-stencil docs",
     "start": "stencil build --dev --watch --serve",
     "generate": "stencil generate"
   },
