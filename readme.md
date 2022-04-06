@@ -102,7 +102,3 @@ https://shingo1551.github.io/pdf-stencil/
 ```
     "build": "rm -rf dist docs www && stencil build --docs && mv www/pdf-stencil docs",
 ```
-
-### github pages
-
-https://shingo1551.github.io/pdf-stencil/
