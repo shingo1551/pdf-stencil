@@ -1,13 +1,16 @@
 import { PDFDocument } from 'pdf-lib';
 
-import { demoFont } from './demo-font'
+import fontkit from '@pdf-lib/fontkit'
+
 // import { demoSVG } from './demo-svg';
 import { demoText } from './demo-text';
 import { demoTiger } from './demo-tiger';
 
-export async function demoPdf(text: string, tiger: string) {
+export async function demoPdf(fontBytes: ArrayBuffer, text: string, tiger: string) {
   const pdfDoc = await PDFDocument.create();
-  const customFont = await demoFont(pdfDoc);
+
+  pdfDoc.registerFontkit(fontkit);
+  const customFont = await pdfDoc.embedFont(fontBytes);
 
   const page = pdfDoc.addPage();
   // demoSVG(page);

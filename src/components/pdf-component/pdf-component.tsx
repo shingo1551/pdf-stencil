@@ -8,14 +8,21 @@ import { demoPdf } from './demo-pdf';
 })
 export class PdfComponent {
   @State() tiger: string;
+
+  fontBytes: ArrayBuffer
   input: HTMLInputElement;
+
+  async componentWillLoad() {
+    const url = './assets/NotoSansJP-Regular.otf';
+    this.fontBytes = await fetch(url).then((res) => res.arrayBuffer());
+  }
 
   handleButton = async (event: MouseEvent) => {
     event.preventDefault();
 
     const url = './assets/Ghostscript_Tiger.svg';
     this.tiger = await fetch(url).then((res) => res.text());
-    const pdfBytes = await demoPdf(this.input.value, this.tiger);
+    const pdfBytes = await demoPdf(this.fontBytes, this.input.value, this.tiger);
     download(pdfBytes, 'foo.pdf');
     // window.open(blobUrl, '_blank');
   }
