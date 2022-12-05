@@ -10,7 +10,7 @@ export async function demoPdf(fontBytes: ArrayBuffer, text: string, tiger: strin
   const pdfDoc = await PDFDocument.create();
 
   pdfDoc.registerFontkit(fontkit);
-  const customFont = await pdfDoc.embedFont(fontBytes);
+  const customFont = await pdfDoc.embedFont(fontBytes, { subset: true });
 
   const page = pdfDoc.addPage();
   // demoSVG(page);

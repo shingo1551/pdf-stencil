@@ -13,7 +13,8 @@ export class PdfComponent {
   input: HTMLInputElement;
 
   async componentWillLoad() {
-    const url = './assets/NotoSansJP-Regular.otf';
+    // const url = './assets/NotoSansJP-Regular.otf';
+    const url = './assets/GenShinGothic-P-Regular.ttf';
     this.fontBytes = await fetch(url).then((res) => res.arrayBuffer());
   }
 
